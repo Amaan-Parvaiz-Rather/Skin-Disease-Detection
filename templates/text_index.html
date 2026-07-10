@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .assessment-option {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .assessment-option:hover {
+            background: #bbdefb;
+            transform: translateY(-2px);
+        }
+        .assessment-option h3 {
+            margin: 0 0 10px 0;
+            color: #1976d2;
+        }
+        .question-container {
+            margin: 20px 0;
+        }
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        .options-container {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2196f3;
+        }
+        .option.selected {
+            background: #2196f3;
+            color: white;
+            border-color: #1976d2;
+        }
+        .progress {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+            font-weight: bold;
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        .btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #1976d2;
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        .results {
+            background: #e8f5e8;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .condition-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .primary-condition {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+        .score {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .normalized-score {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .max-score {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .advice-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+        .gemini-badge {
+            background: #4285f4;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2196f3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .scale-info {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Academic Mental Health Assessment</h1>
+        
+        <!-- Assessment Selection -->
+        <div id="selection-section">
+            <h2>Choose Assessment Type</h2>
+            
+            <div class="assessment-option" onclick="selectAssessment('full')">
+                <h3>📊 Full Assessment</h3>
+                <p>Complete mental health evaluation (26 questions)</p>
+                <small>Assesses Anxiety, Depression, and Stress levels with proper scoring scales</small>
+            </div>
+            
+            <div class="assessment-option" onclick="selectAssessment('anxiety')">
+                <h3>😰 Anxiety Assessment (GAD-7)</h3>
+                <p>Focus on anxiety symptoms (7 questions)</p>
+                <small>Scale: 0-3 points per question | Max score: 21</small>
+            </div>
+            
+            <div class="assessment-option" onclick="selectAssessment('depression')">
+                <h3>😔 Depression Assessment (PHQ-9)</h3>
+                <p>Focus on depression symptoms (9 questions)</p>
+                <small>Scale: 0-3 points per question | Max score: 27</small>
+            </div>
+            
+            <div class="assessment-option" onclick="selectAssessment('stress')">
+                <h3>😥 Stress Assessment (PSS)</h3>
+                <p>Focus on stress levels (10 questions)</p>
+                <small>Scale: 0-4 points per question | Max score: 40</small>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="startSelectedAssessment()" id="start-btn" disabled>Start Assessment</button>
+            </div>
+        </div>
+        
+        <!-- Question Section -->
+        <div id="question-section" class="hidden">
+            <div class="progress" id="progress">Question 1/26</div>
+            <div class="scale-info" id="scale-info">
+                Please select how often you've experienced this in the past semester
+            </div>
+            <div class="question-container">
+                <div class="question-text" id="question-text"></div>
+                <div class="options-container" id="options-container"></div>
+            </div>
+            <div style="text-align: center;">
+                <button class="btn" onclick="submitAnswer()" id="submit-btn" disabled>Next Question</button>
+                <button class="btn btn-secondary" onclick="goBackToSelection()">Back to Selection</button>
+            </div>
+        </div>
+        
+        <!-- Loading Section -->
+        <div id="loading-section" class="hidden">
+            <div class="loading">
+                <div class="spinner"></div>
+                <h3>Analyzing Your Responses</h3>
+                <p>Generating personalized insights with AI...</p>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div id="results-section" class="hidden">
+            <div class="results">
+                <h2>📊 Assessment Results</h2>
+                <div id="results-content"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn" onclick="startNewAssessment()">Start New Assessment</button>
+                    <button class="btn btn-secondary" onclick="downloadResults()">Download Results</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedAssessment = '';
+        let currentSelectedOption = null;
+        
+        function selectAssessment(type) {
+            selectedAssessment = type;
+            document.getElementById('start-btn').disabled = false;
+            
+            // Update visual selection
+            document.querySelectorAll('.assessment-option').forEach(opt => {
+                opt.style.background = '#e3f2fd';
+            });
+            event.currentTarget.style.background = '#bbdefb';
+        }
+        
+        async function startSelectedAssessment() {
+            document.getElementById('selection-section').classList.add('hidden');
+            document.getElementById('question-section').classList.remove('hidden');
+            
+            try {
+                const response = await fetch('/start_assessment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ type: selectedAssessment })
+                });
+                const data = await response.json();
+                displayQuestion(data);
+            } catch (error) {
+                console.error('Error starting assessment:', error);
+                alert('Error starting assessment. Please try again.');
+            }
+        }
+        
+        function displayQuestion(data) {
+            document.getElementById('question-text').textContent = data.question;
+            document.getElementById('progress').textContent = `Question ${data.progress}`;
+            
+            // Update scale info based on options
+            const maxValue = Math.max(...data.options.map(opt => opt.value));
+            const scaleInfo = document.getElementById('scale-info');
+            if (maxValue === 3) {
+                scaleInfo.textContent = "Scale: 0 (Not at all) to 3 (Nearly every day)";
+            } else if (maxValue === 4) {
+                scaleInfo.textContent = "Scale: 0 (Never) to 4 (Very often)";
+            }
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            data.options.forEach(option => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <strong>${option.value} - ${option.text}</strong>
+                `;
+                optionDiv.onclick = () => selectOption(optionDiv, option.value);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('submit-btn').disabled = true;
+            currentSelectedOption = null;
+        }
+        
+        function selectOption(optionElement, value) {
+            if (currentSelectedOption) {
+                currentSelectedOption.classList.remove('selected');
+            }
+            optionElement.classList.add('selected');
+            currentSelectedOption = optionElement;
+            document.getElementById('submit-btn').disabled = false;
+        }
+        
+        async function submitAnswer() {
+            if (!currentSelectedOption) return;
+            
+            const selectedValue = parseInt(currentSelectedOption.textContent.match(/(\d+) -/)[1]);
+            
+            try {
+                const response = await fetch('/submit_answer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ answer: selectedValue })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                if (data.completed) {
+                    // Show loading while generating AI advice
+                    document.getElementById('question-section').classList.add('hidden');
+                    document.getElementById('loading-section').classList.remove('hidden');
+                    
+                    // Small delay to show loading animation
+                    setTimeout(() => {
+                        showResults(data);
+                    }, 1500);
+                } else {
+                    displayQuestion(data);
+                }
+                
+            } catch (error) {
+                console.error('Error submitting answer:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+        
+        function showResults(data) {
+            document.getElementById('loading-section').classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+            
+            const resultsContent = document.getElementById('results-content');
+            
+            let html = `
+                <div class="condition-card ${data.assessment_type === 'full' ? 'primary-condition' : ''}">
+                    <h3>🎯 ${data.assessment_type === 'full' ? 'Primary Concern' : 'Assessment Result'}: ${data.primary_condition.toUpperCase()}</h3>
+                    <p><strong>Level:</strong> ${data.primary_prediction}</p>
+                    <p><strong>Raw Score:</strong> <span class="score">${data.raw_scores[data.primary_condition]}</span> 
+                       <span class="max-score">/ ${data.max_scores[data.primary_condition]}</span></p>
+                    <p><strong>Normalized Score:</strong> <span class="normalized-score">${data.normalized_scores[data.primary_condition]}%</span></p>
+                </div>
+                
+                <div class="condition-card">
+                    <h4>💡 AI-Powered Recommendations <span class="gemini-badge">Gemini AI</span></h4>
+                    <div class="advice-box">${data.primary_advice}</div>
+                </div>
+            `;
+            
+            if (data.assessment_type === 'full') {
+                html += `<h3>📈 All Assessment Results:</h3>`;
+                
+                for (const [condition, prediction] of Object.entries(data.predictions)) {
+                    if (prediction !== "Not Assessed") {
+                        const isPrimary = condition === data.primary_condition;
+                        html += `
+                            <div class="condition-card ${isPrimary ? 'primary-condition' : ''}">
+                                <h4>${condition.charAt(0).toUpperCase() + condition.slice(1)} ${isPrimary ? '🏆' : ''}</h4>
+                                <p><strong>Level:</strong> ${prediction}</p>
+                                <p><strong>Score:</strong> <span class="score">${data.raw_scores[condition]}</span> 
+                                   <span class="max-score">/ ${data.max_scores[condition]}</span> 
+                                   | <span class="normalized-score">${data.normalized_scores[condition]}%</span></p>
+                                ${isPrimary ? '<p><em>👆 Primary concern based on normalized scores</em></p>' : ''}
+                            </div>
+                        `;
+                    }
+                }
+                
+                // Add comparative analysis for full assessment
+                html += `
+                    <div class="condition-card">
+                        <h4>📊 Comparative Analysis</h4>
+                        <p>All scores are normalized to 0-100% scale for fair comparison across different assessment tools:</p>
+                        <ul>
+                            <li><strong>Anxiety (GAD-7):</strong> 7 questions × 0-3 scale = Max 21</li>
+                            <li><strong>Depression (PHQ-9):</strong> 9 questions × 0-3 scale = Max 27</li>
+                            <li><strong>Stress (PSS):</strong> 10 questions × 0-4 scale = Max 40</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                // Single assessment additional info
+                html += `
+                    <div class="condition-card">
+                        <h4>📋 Assessment Details</h4>
+                        <p><strong>Assessment Type:</strong> ${data.assessment_type.toUpperCase()}</p>
+                        <p><strong>Questionnaire:</strong> ${
+                            data.assessment_type === 'anxiety' ? 'GAD-7 (Generalized Anxiety Disorder)' :
+                            data.assessment_type === 'depression' ? 'PHQ-9 (Patient Health Questionnaire)' :
+                            'PSS (Perceived Stress Scale)'
+                        }</p>
+                        <p><strong>Clinical Range:</strong> ${getClinicalRange(data.assessment_type, data.raw_scores[data.primary_condition])}</p>
+                    </div>
+                `;
+            }
+            
+            resultsContent.innerHTML = html;
+        }
+        
+        function getClinicalRange(condition, score) {
+            const ranges = {
+                'anxiety': [
+                    { max: 4, level: 'Minimal anxiety' },
+                    { max: 9, level: 'Mild anxiety' },
+                    { max: 14, level: 'Moderate anxiety' },
+                    { max: 21, level: 'Severe anxiety' }
+                ],
+                'depression': [
+                    { max: 4, level: 'Minimal depression' },
+                    { max: 9, level: 'Mild depression' },
+                    { max: 14, level: 'Moderate depression' },
+                    { max: 19, level: 'Moderately severe depression' },
+                    { max: 27, level: 'Severe depression' }
+                ],
+                'stress': [
+                    { max: 13, level: 'Low stress' },
+                    { max: 26, level: 'Moderate stress' },
+                    { max: 40, level: 'High perceived stress' }
+                ]
+            };
+            
+            const conditionRanges = ranges[condition];
+            for (let range of conditionRanges) {
+                if (score <= range.max) {
+                    return range.level;
+                }
+            }
+            return 'Unknown range';
+        }
+        
+        function goBackToSelection() {
+            document.getElementById('question-section').classList.add('hidden');
+            document.getElementById('selection-section').classList.remove('hidden');
+            selectedAssessment = '';
+            document.getElementById('start-btn').disabled = true;
+        }
+        
+        function startNewAssessment() {
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('selection-section').classList.remove('hidden');
+            selectedAssessment = '';
+            document.getElementById('start-btn').disabled = true;
+        }
+        
+        function downloadResults() {
+            const resultsContent = document.getElementById('results-content').innerText;
+            const blob = new Blob([`Mental Health Assessment Results\n\n${resultsContent}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mental-health-assessment-results.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Handle keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !document.getElementById('submit-btn').disabled) {
+                submitAnswer();
+            }
+        });
+    </script>
+</body>
+</html>

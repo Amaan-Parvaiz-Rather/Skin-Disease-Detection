@@ -1,0 +1,30 @@
+# Environments
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Models and Checkpoints
+Checkpoints/
+*.pth
+*.pt
+*.h5
+
+# Datasets
+dermatology_dataset/
+*.zip
+*.tar.gz
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+*.docx

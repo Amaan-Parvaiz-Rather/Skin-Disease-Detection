@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dermān — Skin Intelligence, Redefined</title>
+    <meta name="description"
+        content="DermānAI uses clinically-inspired AI to detect 23+ skin conditions from a single photo — fast, accurate, and accessible.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- STAGGERED NAV MENU OVERLAY -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="staggered-menu-wrapper fixed-wrapper" data-position="left">
+        <div class="sm-prelayers" aria-hidden="true" id="sm-prelayers">
+            <div class="sm-prelayer" style="background: #E0F2FE;"></div>
+            <div class="sm-prelayer" style="background: #38BDF8;"></div>
+        </div>
+
+        <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
+            <div class="sm-panel-inner">
+                <ul class="sm-panel-list" role="list" data-numbering="true">
+                    <li class="sm-panel-itemWrap">
+                        <a class="sm-panel-item drawer-link" href="#hero-section" data-index="1">
+                            <span class="sm-panel-itemLabel">Home</span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap">
+                        <a class="sm-panel-item drawer-link" href="#process-section" data-index="2">
+                            <span class="sm-panel-itemLabel">How It Works</span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap">
+                        <a class="sm-panel-item drawer-link" href="#diseases-section" data-index="3">
+                            <span class="sm-panel-itemLabel">Conditions</span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap">
+                        <a class="sm-panel-item drawer-link" href="#smart-detect-section" data-index="4">
+                            <span class="sm-panel-itemLabel">About</span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap">
+                        <a class="sm-panel-item drawer-link" href="#contact-section" data-index="5">
+                            <span class="sm-panel-itemLabel">Contact</span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap" style="margin-top: 1rem;">
+                        <a class="sm-panel-item" href="#" id="menu-scan-btn" data-index="6" style="color: #38BDF8;">
+                            <span class="sm-panel-itemLabel">Scan Now <i class="las la-camera" style="font-size: 1.8rem;"></i></span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap mobile-only-menu-item">
+                        <a class="sm-panel-item drawer-link" href="#" data-index="7">
+                            <span class="sm-panel-itemLabel">Profile <i class="las la-user" style="font-size: 1.5rem;"></i></span>
+                        </a>
+                    </li>
+                    <li class="sm-panel-itemWrap mobile-only-menu-item">
+                        <a class="sm-panel-item drawer-link" href="#contact-section" data-index="8">
+                            <span class="sm-panel-itemLabel">Get in touch</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="sm-socials" aria-label="Social links">
+                    <h3 class="sm-socials-title">Follow Us</h3>
+                    <ul class="sm-socials-list" role="list">
+                        <li class="sm-socials-item">
+                            <a href="#" class="sm-socials-link">Twitter</a>
+                        </li>
+                        <li class="sm-socials-item">
+                            <a href="#" class="sm-socials-link">LinkedIn</a>
+                        </li>
+                        <li class="sm-socials-item">
+                            <a href="#" class="sm-socials-link">Instagram</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- MAIN APP LAYOUT (White Card on Gray Background) -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="app-layout">
+        <div class="app-layout-inner">
+            <header class="staggered-menu-header" aria-label="Main navigation header">
+                <!-- Left: Toggle button -->
+                <button class="sm-toggle" id="sm-toggle-btn" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="staggered-menu-panel" type="button">
+                    <span class="sm-icon" aria-hidden="true" id="sm-icon">
+                        <span class="sm-icon-line" id="sm-plus-h"></span>
+                        <span class="sm-icon-line" id="sm-plus-v"></span>
+                    </span>
+                </button>
+
+                <!-- Center: Brand -->
+                <a href="#" class="brand-logo" style="text-decoration: none;">Dermān</a>
+
+                <!-- Right: Profile and CTA -->
+                <div class="nav-right">
+                    <button class="btn-icon" aria-label="Profile">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </button>
+                    <a href="#contact-section" class="btn-primary">Get in touch</a>
+                </div>
+            </header>
+
+            <div id="main-view">
+
+                <!-- ─── HERO SECTION ─── -->
+                <section class="hero" id="hero-section">
+                    <img src="{{ url_for('static', filename='img/hero_Section_image.jpg') }}" alt="Hero background"
+                        class="hero-bg" onerror="this.style.display='none'">
+                    <div class="hero-overlay"></div>
+
+                    <div class="hero-content">
+                        <p class="hero-eyebrow">AI-Powered Skin Intelligence</p>
+                        <h1 class="hero-title">Confidence Starts with Healthy Skin.</h1>
+                        <p class="hero-subtitle">
+                            Detect possible skin conditions in minutes using AI-powered image analysis, with clear
+                            insights, personalized care guidance, and recommendations for your next steps.
+                        </p>
+                        
+                        <!-- Mobile-only stats inside hero -->
+                        <div class="mobile-hero-stats">
+                            <div class="stat-pill">
+                                <span class="stat-label">Accuracy</span>
+                                <div class="stat-value-container">
+                                    <span class="stat-prefix">~</span><span class="stat-number" data-target="80">0</span><span class="stat-unit">%</span>
+                                    <span class="stat-subtext">Clinical Grade</span>
+                                </div>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-label">Coverage</span>
+                                <div class="stat-value-container">
+                                    <span class="stat-number" data-target="23">0</span><span class="stat-plus">+</span>
+                                    <span class="stat-subtext">Conditions</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="scan-cta-btn" id="open-scan-modal">
+                            Scan Your Skin
+                            <i class="las la-camera" style="font-size: 1.3rem;"></i>
+                        </button>
+                    </div>
+
+                    <!-- Bottom-right corner AI scan mockup -->
+                    <div class="hero-corner-mockup">
+                        <div class="hero-corner-inner">
+                            <img src="{{ url_for('static', filename='img/screen.png') }}" alt="AI Skin Scan in action"
+                                class="hero-corner-img">
+                            <div class="hero-scanner-laser"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── TRUST / STATS BAR ─── -->
+                <section class="stats-bar">
+                    <div class="stats-bar-inner">
+                        <p class="stats-description">
+                            Designed to make skin health assessments more accessible through AI-powered image analysis
+                            and clinically inspired technology.
+                        </p>
+                        <div class="stat-pill">
+                            <span class="stat-label">Accuracy</span>
+                            <div class="stat-value-container">
+                                <span class="stat-prefix">~</span><span class="stat-number" data-target="80">0</span><span class="stat-unit">%</span>
+                                <span class="stat-subtext">Clinical Grade</span>
+                            </div>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-label">Coverage</span>
+                            <div class="stat-value-container">
+                                <span class="stat-number" data-target="23">0</span><span class="stat-plus">+</span>
+                                <span class="stat-subtext">Conditions</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── THE DERMĀN PROCESS ─── -->
+                <section class="process-section" id="process-section">
+                    <div class="section-container">
+                        <div class="section-eyebrow-pill">PROCESS</div>
+                        <h2 class="section-title">The Dermān Process</h2>
+                        <p class="section-subtitle">
+                            Seamless integration of computer vision and dermatological expertise.
+                        </p>
+
+                        <div class="process-grid">
+                            <div class="process-card">
+                                <div class="process-icon">
+                                    <i class="las la-camera" style="font-size: 2rem;"></i>
+                                </div>
+                                <h3 class="process-step-title">1. Capture</h3>
+                                <p class="process-step-desc">Take a clear, photo of your skin concern or upload the
+                                    photo</p>
+                            </div>
+
+                            <div class="process-card">
+                                <div class="process-icon">
+                                    <i class="las la-microchip" style="font-size: 2rem;"></i>
+                                </div>
+                                <h3 class="process-step-title">2. Analyze</h3>
+                                <p class="process-step-desc">Our clinical-grade AI processes the image instantly</p>
+                            </div>
+
+                            <div class="process-card">
+                                <div class="process-icon">
+                                    <i class="las la-file-medical-alt" style="font-size: 2rem;"></i>
+                                </div>
+                                <h3 class="process-step-title">3. Name It</h3>
+                                <p class="process-step-desc">Check whether the skin i the image is actually infected or
+                                    not and give a detailed review if it is</p>
+                            </div>
+
+                            <div class="process-card process-card--highlight">
+                                <div class="phase-two-pill">PHASE 2</div>
+                                <div class="process-icon">
+                                    <i class="las la-shield-alt" style="font-size: 2rem;"></i>
+                                </div>
+                                <h3 class="process-step-title-phase2">4. DERMĀN</h3>
+                                <p class="process-step-desc-phase2
+                        ">Personalized treatment regimens.</p>
+                                <button class="process-cta-orange" id="process-scan-btn" disabled>IN PROGRESS</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── DISEASE COVERAGE ─── -->
+                <section class="diseases-section" id="diseases-section">
+                    <div class="section-container">
+                        <div class="diseases-header">
+                            <div>
+                                <p class="section-eyebrow-pill">Coverage</p>
+                                <h2 class="section-title">Coverage Across Common Skin Conditions</h2>
+                                <p class="section-subtitle">
+                                    Identifying over 40 distinct dermatological conditions with high fidelity.
+                                </p>
+                            </div>
+                            <a href="#" class="view-all-link">View Database <i class="las la-arrow-right"
+                                    style="font-size: 1.2rem;"></i></a>
+                        </div>
+
+                        <div class="diseases-grid">
+                            <div class="disease-card">
+                                <div class="disease-img-wrap">
+                                    <img src="{{ url_for('static', filename='img/ECZEMA.jpg') }}" alt="Eczema"
+                                        onerror="this.src=''">
+                                </div>
+                                <div class="disease-info">
+                                    <h4 class="disease-name">Eczema</h4>
+                                    <p class="disease-sub">Atopic Dermatitis</p>
+                                </div>
+                            </div>
+
+                            <div class="disease-card">
+                                <div class="disease-img-wrap">
+                                    <img src="{{ url_for('static', filename='img/acne.jpg') }}" alt="Acne"
+                                        onerror="this.src=''">
+                                </div>
+                                <div class="disease-info">
+                                    <h4 class="disease-name">Acne</h4>
+                                    <p class="disease-sub">Inflammatory Lesions</p>
+                                </div>
+                            </div>
+
+                            <div class="disease-card">
+                                <div class="disease-img-wrap">
+                                    <img src="{{ url_for('static', filename='img/ROSACEA.jpg') }}" alt="Rosacea"
+                                        onerror="this.src=''">
+                                </div>
+                                <div class="disease-info">
+                                    <h4 class="disease-name">Rosacea</h4>
+                                    <p class="disease-sub">Chronic Redness</p>
+                                </div>
+                            </div>
+
+                            <!-- 4th card: summary with 3 circles + 20+ -->
+                            <div class="disease-card disease-card--more">
+                                <div class="disease-more-circles">
+                                    <div class="more-circle">
+                                        <img src="{{ url_for('static', filename='img/more disese photo.jpg') }}"
+                                            alt="More conditions" onerror="this.src=''">
+                                    </div>
+                                    <div class="more-circle more-circle--2">
+                                        <img src="{{ url_for('static', filename='img/ECZEMA.jpg') }}" alt="More"
+                                            onerror="this.src=''">
+                                    </div>
+                                    <div class="more-circle more-circle--3">
+                                        <img src="{{ url_for('static', filename='img/ROSACEA.jpg') }}" alt="More"
+                                            onerror="this.src=''">
+                                    </div>
+                                    <div class="more-circle more-circle--4 more-circle--text">
+                                        +20
+                                    </div>
+                                </div>
+                                <div class="disease-more-count">23+ Total</div>
+                                <p class="disease-more-label">Conditions Identified</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── SMART DETECT SECTION ─── -->
+                <section class="smart-detect-section" id="smart-detect-section">
+                    <div class="smart-detect-header">
+                        <div class="smart-detect-header-left">
+                            <div class="section-eyebrow-pill section-eyebrow-pill--blue">FACE SCAN</div>
+                            <h2 class="smart-detect-title">A SMARTER WAY TO DETECT, UNDERSTAND, AND CARE FOR YOUR SKIN
+                            </h2>
+                        </div>
+                        <div class="smart-detect-header-right">
+                            <p class="smart-detect-desc">
+                                Using advanced AI image analysis, our platform helps you understand possible skin
+                                conditions, receive personalized guidance, and stay informed throughout your skin health
+                                journey.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="smart-detect-main-img-wrap">
+                        <img src="{{ url_for('static', filename='img/Face scan Section landcscape iamge.jpg') }}"
+                            alt="Face scan background">
+                    </div>
+
+                    <div class="mockups-grid">
+                        <div class="mockup-item">
+                            <div class="mockup-img-wrap">
+                                <img src="{{ url_for('static', filename='img/Derm_n App Mockup1.png') }}"
+                                    alt="Scan your Skin" onerror="this.style.display='none'">
+                            </div>
+                            <h4 class="mockup-caption">Scan your Skin</h4>
+                            <p class="mockup-sub">Capture or upload a clear photo of the affected area.</p>
+                        </div>
+
+                        <div class="mockup-item">
+                            <div class="mockup-img-wrap">
+                                <img src="{{ url_for('static', filename='img/Derm_n AI Analysis mockup 2.png') }}"
+                                    alt="Get AI insights." onerror="this.style.display='none'">
+                            </div>
+                            <h4 class="mockup-caption">Get AI insights.</h4>
+                            <p class="mockup-sub">View a visual heatmap, possible skin conditions, confidence scores.
+                            </p>
+                        </div>
+
+                        <div class="mockup-item">
+                            <div class="mockup-img-wrap">
+                                <img src="{{ url_for('static', filename='img/Derm_n Progress Tracking Blue Theme 3.png') }}"
+                                    alt="Clinical Regimen" onerror="this.style.display='none'">
+                            </div>
+                            <h4 class="mockup-caption">Clinical Regimen</h4>
+                            <p class="mockup-sub">Monitor your healing, progress trends, treatment reminders, and
+                                recovery insights over time.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── CTA BANNER ─── -->
+                <section class="cta-banner-section">
+                    <div class="cta-banner-inner-container">
+                        <div class="cta-card">
+                            <div class="cta-card-content">
+                                <h2 class="cta-title">Your Journey to Healthier Skin Starts Here</h2>
+                                <p class="cta-desc">
+                                    Capture or upload a photo to receive AI-assisted skin analysis and personalized
+                                    guidance designed to help you care for your skin with confidence.
+                                </p>
+                            </div>
+
+                            <div class="cta-cutout-wrap">
+                                <div class="cta-cutout-inner">
+                                    <button class="cta-scan-btn" id="cta-scan-btn">
+                                        Scan Your Skin
+                                        <i class="las la-expand" style="font-size: 1.5rem;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── GET IN TOUCH / FOOTER ─── -->
+                <section class="contact-section" id="contact-section">
+                    <div class="contact-marquee-wrap">
+                        <form action="#" class="contact-huge-form"
+                            onsubmit="event.preventDefault(); alert('Thank you! Email functionality will be added later.');">
+                            <div class="contact-input-wrapper">
+                                <input type="text   " class="contact-display-input" placeholder="GET IN TOUCH"
+                                    aria-label="Enter email to get in touch">
+                                <button type="submit" class="contact-send-btn">Send</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="footer-divider"></div>
+
+                    <div class="footer-container">
+                        <div class="footer-main">
+                            <div class="footer-left">
+                                <span class="footer-brand">Dermān</span>
+                                <p class="footer-tagline">Professional Grade Skin Analysis.<br>Powered by rigorous
+                                    clinical datasets<br>and advanced AI.</p>
+
+                                <div class="footer-links-inline">
+                                    <a href="#">How it Works</a>
+                                    <a href="#">Research</a>
+                                    <a href="#">Dataset</a>
+                                    <a href="#">Journal</a>
+                                </div>
+                            </div>
+
+                            <div class="footer-right">
+                                <div class="footer-socials">
+                                    <!-- Instagram -->
+                                    <a href="#" class="social-icon" aria-label="Instagram">
+                                        <i class="lab la-instagram" style="font-size: 1.5rem;"></i>
+                                    </a>
+                                    <!-- Github -->
+                                    <a href="#" class="social-icon" aria-label="Github">
+                                        <i class="lab la-github" style="font-size: 1.5rem;"></i>
+                                    </a>
+                                    <!-- LinkedIn -->
+                                    <a href="#" class="social-icon" aria-label="LinkedIn">
+                                        <i class="lab la-linkedin-in" style="font-size: 1.5rem;"></i>
+                                    </a>
+                                    <!-- Facebook -->
+                                    <a href="#" class="social-icon" aria-label="Facebook">
+                                        <i class="lab la-facebook-f" style="font-size: 1.5rem;"></i>
+                                    </a>
+                                    <!-- Discord -->
+                                    <a href="#" class="social-icon" aria-label="Discord">
+                                        <i class="lab la-discord" style="font-size: 1.5rem;"></i>
+                                    </a>
+                                </div>
+                                <div class="footer-disclaimer-box">
+                                    <span class="disclaimer-title">DISCLAIMER:</span>
+                                    <span class="disclaimer-text">DERMĀN PROVIDES INFORMATIONAL ANALYSIS BASED ON VISUAL
+                                        DATA. IT DOES NOT REPLACE PROFESSIONAL DERMATOLOGICAL CONSULTATION.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="footer-divider"></div>
+
+                        <div class="footer-bottom">
+                            <p class="footer-copy">© 2024 Dermān AI. Professional Grade Skin Analysis.</p>
+                            <div class="footer-legal">
+                                <a href="#">Privacy Policy</a>
+                                <a href="#">Terms of Service</a>
+                                <a href="#">Cookie Policy</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /main-view -->
+
+            <!-- ═══════════════════════════════════════════════════════ -->
+            <!-- SCAN MODAL (full-screen scanner) -->
+            <!-- ═══════════════════════════════════════════════════════ -->
+            <div class="modal-overlay" id="scan-modal">
+                <div class="modal-content modal-content--camera">
+                    <button class="close-btn" id="close-scan-modal" aria-label="Close">
+                        <i class="las la-times" style="font-size: 1.5rem;"></i>
+                    </button>
+
+                    <!-- ── SCREEN 1: Camera Viewfinder ── -->
+                    <div id="cam-screen"
+                        style="display:none; width:100%; height:100%; flex-direction:column; align-items:center; justify-content:flex-end; position:relative;">
+                        <!-- Live camera feed -->
+                        <video id="cam-video" autoplay playsinline muted
+                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:20px;"></video>
+
+                        <!-- Dark vignette overlay -->
+                        <div
+                            style="position:absolute;inset:0;border-radius:20px;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.55) 100%);pointer-events:none;">
+                        </div>
+
+                        <!-- Corner scanner frame -->
+                        <div class="cam-scanner-frame">
+                            <span class="cam-corner cam-corner-tl"></span>
+                            <span class="cam-corner cam-corner-tr"></span>
+                            <span class="cam-corner cam-corner-bl"></span>
+                            <span class="cam-corner cam-corner-br"></span>
+                            <!-- Scanning laser line -->
+                            <div class="cam-laser-line"></div>
+                        </div>
+
+                        <!-- Top label -->
+                        <div style="position:absolute;top:1.5rem;left:0;right:0;text-align:center;z-index:10;">
+                            <p
+                                style="color:white;font-size:0.85rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;opacity:0.9;margin:0;">
+                                Position affected skin area</p>
+                        </div>
+
+                        <!-- Bottom controls -->
+                        <div
+                            style="position:relative;z-index:10;display:flex;align-items:center;gap:2rem;padding:2rem 0 2.5rem;width:100%;justify-content:center;">
+                            <!-- Switch to upload -->
+                            <button id="cam-switch-upload" title="Upload image"
+                                style="background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:48px;height:48px;color:white;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
+                                <i class="las la-image"></i>
+                            </button>
+                            <!-- Capture button -->
+                            <button id="cam-capture-btn"
+                                style="background:white;border:4px solid rgba(255,255,255,0.4);border-radius:50%;width:72px;height:72px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(255,255,255,0.2);">
+                                <div style="width:52px;height:52px;background:#38BDF8;border-radius:50%;"></div>
+                            </button>
+                            <!-- Flip camera -->
+                            <button id="cam-flip-btn" title="Flip camera"
+                                style="background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:48px;height:48px;color:white;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
+                                <i class="las la-sync"></i>
+                            </button>
+                        </div>
+                        <!-- Hidden canvas for capture -->
+                        <canvas id="cam-canvas" style="display:none;"></canvas>
+                    </div>
+
+                    <!-- ── SCREEN 2: Camera Permission Request ── -->
+                    <div id="perm-screen"
+                        style="display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2.5rem 2rem;gap:1.2rem;height:100%;">
+                        <div
+                            style="width:80px;height:80px;background:linear-gradient(135deg,#e0f2fe,#bae6fd);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <i class="las la-camera" style="font-size:2.2rem;color:#0284c7;"></i>
+                        </div>
+                        <h2 style="font-size:1.4rem;font-weight:700;color:#0f172a;margin:0;">Enable Camera</h2>
+                        <p style="color:#64748b;font-size:0.95rem;line-height:1.6;margin:0;">
+                            For the best experience, allow camera access to scan your skin directly. No photos are saved
+                            without your action.
+                        </p>
+                        <button id="perm-allow-btn"
+                            style="background:linear-gradient(135deg,#38BDF8,#0284c7);color:white;border:none;border-radius:12px;padding:0.9rem 2rem;font-size:1rem;font-weight:600;cursor:pointer;width:100%;max-width:280px;">
+                            <i class="las la-camera"></i> &nbsp;Allow Camera Access
+                        </button>
+                        <button id="perm-skip-btn"
+                            style="background:transparent;color:#94a3b8;border:none;font-size:0.9rem;cursor:pointer;padding:0.4rem;">
+                            Skip — upload an image instead
+                        </button>
+                    </div>
+
+                    <!-- ── SCREEN 3: File Upload Fallback ── -->
+                    <div id="upload-screen">
+                        <h2 class="modal-title">Scan Skin Condition</h2>
+                        <p class="modal-subtitle">Upload a clear image of the affected area</p>
+
+                        <!-- Mode tabs -->
+                        <div class="upload-mode-tabs">
+                            <button type="button" class="mode-tab mode-tab--active" id="tab-upload">
+                                <i class="las la-image"></i> Upload Photo
+                            </button>
+                            <button type="button" class="mode-tab" id="tab-camera">
+                                <i class="las la-camera"></i> Use Camera
+                            </button>
+                        </div>
+
+                        <form id="upload-form">
+                            <div class="upload-area" id="upload-area">
+                                <!-- Scanner frame corners -->
+                                <div class="scanner-frame" id="scanner-frame">
+                                    <span class="corner corner-tl"></span>
+                                    <span class="corner corner-tr"></span>
+                                    <span class="corner corner-bl"></span>
+                                    <span class="corner corner-br"></span>
+                                    <div class="scanner-line" id="scanner-line"></div>
+                                    <div class="scanner-dots" id="scanner-dots">
+                                        <span class="s-dot" style="top:20%;left:25%"></span>
+                                        <span class="s-dot" style="top:35%;left:60%"></span>
+                                        <span class="s-dot" style="top:55%;left:40%"></span>
+                                        <span class="s-dot" style="top:70%;left:70%"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Upload prompt -->
+                                <div id="upload-prompt">
+                                    <div class="upload-icon">
+                                        <i class="las la-cloud-upload-alt" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <p class="upload-text">Drop your photo here</p>
+                                    <p class="upload-hint">or click the button below to browse</p>
+                                    <p class="upload-formats">JPG &middot; PNG &middot; WEBP &middot; up to 16 MB</p>
+                                </div>
+
+                                <!-- Image preview -->
+                                <div class="image-preview" id="image-preview-container">
+                                    <img id="image-preview" src="" alt="Preview">
+                                    <div class="scanner-overlay" id="scanner-overlay">
+                                        <div class="scanner-line-anim"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="file" id="file-input" class="file-input" accept="image/*">
+
+                            <!-- Always-visible Choose File button -->
+                            <button type="button" class="choose-file-btn" id="choose-file-btn">
+                                <i class="las la-folder-open"></i> Choose File
+                            </button>
+
+                            <!-- Analyse button — shown after image selected -->
+                            <button type="submit" class="analyze-btn" id="analyze-btn">
+                                <i class="las la-microscope"></i> Analyse Now
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════════ -->
+            <!-- RESULTS SECTION -->
+            <!-- ═══════════════════════════════════════════════════════ -->
+            <div id="results-section">
+                <!-- Back Button Navigation -->
+                <div class="results-nav" style="margin-bottom: 2rem;">
+                    <button class="reset-btn-nav" id="reset-btn">
+                        <i class="las la-arrow-left"></i> Home
+                    </button>
+                    <button class="scan-again-btn" id="scan-again-btn">
+                        <i class="las la-camera-retro"></i> Scan Again
+                    </button>
+                </div>
+
+
+                <div class="results-grid">
+                    <!-- Left: Image comparison -->
+                    <div class="results-img-col">
+                        <div class="image-comparison">
+                            <div id="skel-img" class="skeleton skel-img"></div>
+                            <div id="real-images" style="display:none; position:relative;">
+                                <img id="res-original" src="" alt="Original">
+                                <img id="res-heatmap" src="" alt="Heatmap" class="heatmap-img">
+                            </div>
+                        </div>
+
+                        <div id="slider-wrapper" class="slider-container" style="display:none;">
+                            <input type="range" id="blend-slider" min="0" max="100" value="80">
+                            <div class="slider-label">Adjust AI Heatmap Overlay</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Info -->
+                    <div class="results-info">
+                        <!-- Skeleton -->
+                        <div id="results-skeleton">
+                            <div class="skeleton skel-title"></div>
+                            <div class="skeleton skel-text" style="width:40%;height:20px;margin-bottom:2rem;"></div>
+                            <div class="skeleton skel-text" style="margin-bottom:2rem;height:12px;"></div>
+                            <div class="skeleton skel-text"></div>
+                            <div class="skeleton skel-text"></div>
+                            <div class="skeleton skel-text short" style="margin-bottom:2rem;"></div>
+                            <div class="skeleton skel-text"></div>
+                            <div class="skeleton skel-text"></div>
+                            <div class="skeleton skel-text short"></div>
+                        </div>
+
+                        <!-- Real content -->
+                        <div id="results-content" style="display:none;">
+                            <!-- ── HEALTHY SKIN RESULT (shown only when no disease detected) ── -->
+                            <div id="healthy-result" style="display:none;">
+                                <div class="healthy-banner">
+                                    <div class="healthy-icon-wrap">
+                                        <i class="las la-check-circle"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="healthy-title">No Disease Detected</h2>
+                                        <p class="healthy-sub">Your skin appears healthy! The AI found no significant signs of a skin condition.</p>
+                                    </div>
+                                </div>
+                                <div class="healthy-tips">
+                                    <h3>Skin Care Tips to Keep it That Way</h3>
+                                    <ul id="healthy-tips-list"></ul>
+                                </div>
+                                <div class="doctor-warning" id="healthy-doctor"></div>
+                            </div>
+
+                            <!-- ── DISEASE RESULT (shown only when disease detected) ── -->
+                            <div id="disease-result">
+                                <div id="res-severity-badge" class="severity-badge severity-Low">Severity: Low (3/10)</div>
+                                <h2 id="res-disease" class="disease-result-name">Disease Name</h2>
+
+                                <div class="confidence-text">
+                                    <span>AI Confidence</span>
+                                    <span id="res-confidence-text">0%</span>
+                                </div>
+                                <div class="confidence-bar-container">
+                                    <div id="res-confidence-bar" class="confidence-bar"></div>
+                                </div>
+
+                                <div class="info-section">
+                                    <h3>Overview</h3>
+                                    <p id="res-overview">Overview text goes here.</p>
+                                </div>
+                                <div class="info-section">
+                                    <h3>Symptoms</h3>
+                                    <p id="res-symptoms">Symptoms go here.</p>
+                                </div>
+                                <div class="info-section">
+                                    <h3>Precautions</h3>
+                                    <ul id="res-precautions"></ul>
+                                </div>
+                                <div class="doctor-warning" id="res-doctor">Doctor warning goes here.</div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- MOBILE BOTTOM DOCK -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="mobile-dock">
+            <button class="dock-icon-btn" id="dock-user-btn" aria-label="Profile">
+                <i class="las la-user"></i>
+            </button>
+            <button class="dock-scan-btn" id="dock-scan-btn" aria-label="Scan Skin">
+                <i class="las la-camera"></i>
+            </button>
+            <button class="dock-icon-btn" id="dock-menu-btn" aria-label="Menu" onclick="document.getElementById('sm-toggle-btn').click()">
+                <i class="las la-th-large"></i>
+            </button>
+        </div>
+
+
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+
+</html>

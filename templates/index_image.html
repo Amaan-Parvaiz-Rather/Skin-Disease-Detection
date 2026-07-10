@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dermatology Disease Classifier</title>
+    <style>
+        body { font-family: Arial; text-align: center; background-color: #f4f6f8; }
+        form { background: #fff; padding: 30px; margin-top: 60px; border-radius: 10px; display: inline-block; }
+        input[type=file] { margin: 15px; }
+        button { background-color: #007BFF; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>🩺 Dermatology Image Classifier</h2>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required><br>
+        <button type="submit">Predict Disease</button>
+    </form>
+</body>
+</html>

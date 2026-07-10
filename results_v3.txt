@@ -1,0 +1,50 @@
+SKIN DISEASE CLASSIFICATION - V3
+============================================================
+
+Test Accuracy    : 0.7479  (74.79%)
+TTA  Accuracy    : 0.7441  (74.41%)
+Image Size       : 384x384
+Stage 1 Best Acc : 0.4565
+Stage 2 Best Acc : 0.7424
+Stage 3 Best Acc : 0.7479
+
+Key Techniques Applied:
+  - RandAugment (num_ops=2, magnitude=9)
+  - MixUp (alpha=0.4) + CutMix (alpha=1.0), 80% of batches
+  - 2-layer classifier head (Linear->GELU->Linear)
+  - Differential LR: backbone 5e-5 / head 5e-4
+  - CosineAnnealingWarmRestarts (T_0=10)
+  - Stage 3 polishing (LR=1e-6, no augmentation)
+  - 7-aug TTA
+
+Classification Report:
+                                                                    precision    recall  f1-score   support
+
+                                           Acne and Rosacea Photos     0.8493    0.9391    0.8919       312
+Actinic Keratosis Basal Cell Carcinoma and other Malignant Lesions     0.7687    0.7500    0.7592       288
+                                          Atopic Dermatitis Photos     0.7541    0.7480    0.7510       123
+                                            Bullous Disease Photos     0.6897    0.7080    0.6987       113
+                Cellulitis Impetigo and other Bacterial Infections     0.6438    0.6438    0.6438        73
+                                                     Eczema Photos     0.7228    0.7087    0.7157       309
+                                      Exanthems and Drug Eruptions     0.6408    0.6535    0.6471       101
+                 Hair Loss Photos Alopecia and other Hair Diseases     0.5778    0.8667    0.6933        60
+                                  Herpes HPV and other STDs Photos     0.6016    0.7255    0.6578       102
+                      Light Diseases and Disorders of Pigmentation     0.6242    0.7203    0.6688       143
+                        Lupus and other Connective Tissue diseases     0.7041    0.6571    0.6798       105
+                               Melanoma Skin Cancer Nevi and Moles     0.7857    0.8534    0.8182       116
+                                Nail Fungus and other Nail Disease     0.8443    0.7893    0.8158       261
+                    Poison Ivy Photos and other Contact Dermatitis     0.6774    0.6462    0.6614        65
+             Psoriasis pictures Lichen Planus and related diseases     0.7215    0.6477    0.6826       352
+             Scabies Lyme Disease and other Infestations and Bites     0.6931    0.6481    0.6699       108
+                      Seborrheic Keratoses and other Benign Tumors     0.8174    0.7959    0.8065       343
+                                                  Systemic Disease     0.7727    0.6711    0.7183       152
+            Tinea Ringworm Candidiasis and other Fungal Infections     0.7726    0.7631    0.7678       325
+                                                   Urticaria Hives     0.7544    0.8113    0.7818        53
+                                                   Vascular Tumors     0.8160    0.8430    0.8293       121
+                                                 Vasculitis Photos     0.6757    0.7143    0.6944       105
+                        Warts Molluscum and other Viral Infections     0.7638    0.7132    0.7376       272
+
+                                                          accuracy                         0.7479      4002
+                                                         macro avg     0.7248    0.7399    0.7300      4002
+                                                      weighted avg     0.7501    0.7479    0.7475      4002
+
