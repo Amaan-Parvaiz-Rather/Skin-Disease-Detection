@@ -38,17 +38,21 @@ The core of the application utilizes a highly advanced **Ensemble Architecture**
    cd Skin-Disease-Detection
    ```
 
-2. **Install dependencies**:
+2. **Download the Models**:
+   - Download the model `.pth` files from this [Google Drive Link](https://drive.google.com/drive/folders/10PnewspGtjBA7gERg7mtMnHflNpcQEp_?usp=sharing).
+   - Place all the downloaded `.pth` files inside the `Checkpoints` directory in the root of the project.
+
+3. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the Flask application**:
+4. **Run the Flask application**:
    ```bash
    python app.py
    ```
 
-4. **Open in Browser**:
+5. **Open in Browser**:
    Navigate to `http://127.0.1:5000`
 
 ---
