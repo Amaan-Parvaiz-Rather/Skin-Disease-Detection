@@ -222,12 +222,12 @@ def generate_heatmap(image_path, cam_mask, output_path):
 # HEALTHY SKIN DETECTION THRESHOLDS
 # ============================================================================
 # If confidence is below this, the image is likely healthy or unrelated
-CONFIDENCE_THRESHOLD = 40.0  # percent — below this = likely healthy skin
+CONFIDENCE_THRESHOLD = 55.0  # percent — raised from 40 to catch borderline false positives
 
 # Shannon entropy threshold: if probabilities are spread uniformly across
 # all classes the model is "confused" = likely not a disease image
 # Max entropy for 23 classes = ln(23) ≈ 3.135
-ENTROPY_THRESHOLD = 2.8  # above this = model is too uncertain = healthy / OOD
+ENTROPY_THRESHOLD = 2.5  # lowered from 2.8 — catches more confused/uncertain predictions
 
 # ============================================================================
 # MAIN PREDICTION LOGIC
@@ -241,9 +241,10 @@ def get_severity_label(score):
 
 def is_healthy_or_ood(final_probs, confidence):
     """
-    Checks two conditions to decide if this image is healthy skin or unrelated:
+    Checks three conditions to decide if this image is healthy skin or unrelated:
     1. Confidence is too low (model is not sure about any disease)
     2. Shannon entropy is too high (probabilities are spread out = model confused)
+    3. Top-2 gap is too small (model is indecisive between two classes)
     Returns (is_healthy: bool, reason: str)
     """
     import math
@@ -252,12 +253,18 @@ def is_healthy_or_ood(final_probs, confidence):
     # Compute Shannon entropy
     entropy = -sum(p * math.log(p + 1e-9) for p in probs_np)
     
-    print(f"[HealthCheck] Confidence: {confidence:.1f}%  Entropy: {entropy:.3f}")
+    # Compute gap between top-1 and top-2 predictions
+    sorted_probs = sorted(probs_np, reverse=True)
+    top2_gap = (sorted_probs[0] - sorted_probs[1]) * 100  # in percent
+    
+    print(f"[HealthCheck] Confidence: {confidence:.1f}%  Entropy: {entropy:.3f}  Top-2 Gap: {top2_gap:.1f}%")
     
     if confidence < CONFIDENCE_THRESHOLD:
         return True, f"low_confidence ({confidence:.1f}%)"
     if entropy > ENTROPY_THRESHOLD:
         return True, f"high_entropy ({entropy:.3f})"
+    if top2_gap < 10.0:  # less than 10% gap = model is not decisive
+        return True, f"indecisive_top2_gap ({top2_gap:.1f}%)"
     return False, ""
 
 

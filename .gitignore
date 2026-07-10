@@ -4,7 +4,6 @@ env/
 .env
 
 # Python
-__pycache__/
 *.py[cod]
 *$py.class
 *.so
@@ -13,7 +12,6 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Models and Checkpoints
-Checkpoints/
 *.pth
 *.pt
 *.h5
