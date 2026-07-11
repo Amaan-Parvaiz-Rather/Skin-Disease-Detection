@@ -56,12 +56,14 @@
                     </li>
                     <li class="sm-panel-itemWrap" style="margin-top: 1rem;">
                         <a class="sm-panel-item" href="#" id="menu-scan-btn" data-index="6" style="color: #38BDF8;">
-                            <span class="sm-panel-itemLabel">Scan Now <i class="las la-camera" style="font-size: 1.8rem;"></i></span>
+                            <span class="sm-panel-itemLabel">Scan Now <i class="las la-camera"
+                                    style="font-size: 1.8rem;"></i></span>
                         </a>
                     </li>
                     <li class="sm-panel-itemWrap mobile-only-menu-item">
                         <a class="sm-panel-item drawer-link" href="#" data-index="7">
-                            <span class="sm-panel-itemLabel">Profile <i class="las la-user" style="font-size: 1.5rem;"></i></span>
+                            <span class="sm-panel-itemLabel">Profile <i class="las la-user"
+                                    style="font-size: 1.5rem;"></i></span>
                         </a>
                     </li>
                     <li class="sm-panel-itemWrap mobile-only-menu-item">
@@ -135,13 +137,14 @@
                             Detect possible skin conditions in minutes using AI-powered image analysis, with clear
                             insights, personalized care guidance, and recommendations for your next steps.
                         </p>
-                        
+
                         <!-- Mobile-only stats inside hero -->
                         <div class="mobile-hero-stats">
                             <div class="stat-pill">
                                 <span class="stat-label">Accuracy</span>
                                 <div class="stat-value-container">
-                                    <span class="stat-prefix">~</span><span class="stat-number" data-target="80">0</span><span class="stat-unit">%</span>
+                                    <span class="stat-prefix">~</span><span class="stat-number"
+                                        data-target="80">0</span><span class="stat-unit">%</span>
                                     <span class="stat-subtext">Clinical Grade</span>
                                 </div>
                             </div>
@@ -180,7 +183,8 @@
                         <div class="stat-pill">
                             <span class="stat-label">Accuracy</span>
                             <div class="stat-value-container">
-                                <span class="stat-prefix">~</span><span class="stat-number" data-target="80">0</span><span class="stat-unit">%</span>
+                                <span class="stat-prefix">~</span><span class="stat-number"
+                                    data-target="80">0</span><span class="stat-unit">%</span>
                                 <span class="stat-subtext">Clinical Grade</span>
                             </div>
                         </div>
@@ -461,7 +465,7 @@
                         <div class="footer-divider"></div>
 
                         <div class="footer-bottom">
-                            <p class="footer-copy">© 2024 Dermān AI. Professional Grade Skin Analysis.</p>
+                            <p class="footer-copy">© 2026 Dermān AI. Professional Grade Skin Analysis.</p>
                             <div class="footer-legal">
                                 <a href="#">Privacy Policy</a>
                                 <a href="#">Terms of Service</a>
@@ -681,7 +685,8 @@
                                     </div>
                                     <div>
                                         <h2 class="healthy-title">No Disease Detected</h2>
-                                        <p class="healthy-sub">Your skin appears healthy! The AI found no significant signs of a skin condition.</p>
+                                        <p class="healthy-sub">Your skin appears healthy! The AI found no significant
+                                            signs of a skin condition.</p>
                                     </div>
                                 </div>
                                 <div class="healthy-tips">
@@ -693,7 +698,8 @@
 
                             <!-- ── DISEASE RESULT (shown only when disease detected) ── -->
                             <div id="disease-result">
-                                <div id="res-severity-badge" class="severity-badge severity-Low">Severity: Low (3/10)</div>
+                                <div id="res-severity-badge" class="severity-badge severity-Low">Severity: Low (3/10)
+                                </div>
                                 <h2 id="res-disease" class="disease-result-name">Disease Name</h2>
 
                                 <div class="confidence-text">
@@ -718,27 +724,28 @@
                                 </div>
                                 <div class="doctor-warning" id="res-doctor">Doctor warning goes here.</div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- MOBILE BOTTOM DOCK -->
-        <!-- ═══════════════════════════════════════════════════════ -->
-        <div class="mobile-dock">
-            <button class="dock-icon-btn" id="dock-user-btn" aria-label="Profile">
-                <i class="las la-user"></i>
-            </button>
-            <button class="dock-scan-btn" id="dock-scan-btn" aria-label="Scan Skin">
-                <i class="las la-camera"></i>
-            </button>
-            <button class="dock-icon-btn" id="dock-menu-btn" aria-label="Menu" onclick="document.getElementById('sm-toggle-btn').click()">
-                <i class="las la-th-large"></i>
-            </button>
-        </div>
+            <!-- ═══════════════════════════════════════════════════════ -->
+            <!-- MOBILE BOTTOM DOCK -->
+            <!-- ═══════════════════════════════════════════════════════ -->
+            <div class="mobile-dock">
+                <button class="dock-icon-btn" id="dock-user-btn" aria-label="Profile">
+                    <i class="las la-user"></i>
+                </button>
+                <button class="dock-scan-btn" id="dock-scan-btn" aria-label="Scan Skin">
+                    <i class="las la-camera"></i>
+                </button>
+                <button class="dock-icon-btn" id="dock-menu-btn" aria-label="Menu"
+                    onclick="document.getElementById('sm-toggle-btn').click()">
+                    <i class="las la-th-large"></i>
+                </button>
+            </div>
 
 
-        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 
 </html>

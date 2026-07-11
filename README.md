@@ -16,7 +16,7 @@ The core of the application utilizes a highly advanced **Ensemble Architecture**
 - **Input Resolution**: 384x384 pixels
 - **Classes**: 23 distinct skin condition categories (including Acne, Eczema, Melanoma, Psoriasis, etc.)
 - **Performance**: 
-  - **Test Accuracy**: ~76%+ (Clinical Grade for this dataset complexity)
+  - **Test Accuracy**: ~75%+ (Clinical Grade for this dataset complexity)
 - **Advanced Training Techniques Applied**:
   - **Dual-Model Inference**: Averages the probability distributions of ConvNeXt and EfficientNet for highly stable predictions.
   - **Regularization**: MixUp (alpha=0.4) + CutMix (alpha=1.0) applied to 80% of batches
